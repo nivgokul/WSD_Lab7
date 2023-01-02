@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Creating an Object from a JSON String</h2>
+
+<style>
+  body{
+      background-color: bisque;
+      color: brown;
+  }
+  h1{
+      color: slateblue;
+  }
+  table{
+      border-color: aliceblue;
+      background-color: black;
+      color: aliceblue;
+  }
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<body>
+<h1>Read a Book</h1>
+<p>Click the table headers to change the sorting criteria:</p>
+<div ng-app="myApp" ng-controller="namesCtrl">
+  <p>Search:<input id="s" name="s" type="text" ng-model="searchText"></p>
+<table border="1" width="100%">
+  <tr>
+      <th ng-click="orderByMe('user_id')">User_ID</th>
+      <th ng-click="orderByMe('name')">Name</th>
+      <th ng-click="orderByMe('dob')">Date of Birth</th>
+      <th ng-click="orderByMe('email_id')">Email ID</th>
+      <th ng-click="orderByMe('fav_book')">Favourite Book</th>
+      <th ng-click="orderByMe('genre')">Genre</th>
+  </tr>
+  <tr ng-repeat="x in users | orderBy:myOrderBy |filter:searchText">
+      <td>{{x.user_id|number}}</td>
+      <td>{{x.name|uppercase}}</td>
+      <td>{{x.dob|date:"dd/MM/yyyy"}}</td>
+      <td>{{x.email_id|lowercase}}</td>
+      <td>{{x.fav_book|lowercase}}</td>
+      <td>{{x.genre|lowercase}}</td>
+  </tr>
+</table>
+</div>
+</body>
+<script>
+  angular.module('myApp', []).controller('namesCtrl', function($scope) {
+      $scope.users = [
+      {"user_id":"220001","name":"George","dob":"1995-05-23","email_id":"georged23@gmail.com",
+    "fav_book":"Looking for Alaska","genre":"Young Adult"},
+
+    {"user_id":"220002","name":"Steve","dob":"1989-10-19","email_id":"steveroger@gmail.com",
+    "fav_book":"Pride and Prejudice","genre":"Classic Fiction"},
+
+    {"user_id":"220003","name":"Abhimanyu","dob":"1999-03-14","email_id":"abhimanyu314@gmail.com",
+    "fav_book":"The Adventures of Tom Sawyer","genre":"Adventure<"},
+
+    {"user_id":"220004","name":"Abhirami","dob":"2000-05-16","email_id":"ramiabhi00@gmail.com",
+    "fav_book":"Malgudi Days","genre":"Slice of Life"},
+
+    {"user_id":"220005","name":"Devika","dob":"1998-08-17","email_id":"devikaprabhu@gmail.com",
+    "fav_book":"Good Omens","genre":"Fantasy"},
+
+    {"user_id":"220006","name":"Namrata","dob":"1983-07-24","email_id":"nammanamrata@gmail.com",
+    "fav_book":"Rebecca","genre":"Historical Drama"},
+
+    {"user_id":"220007","name":"Aishwarya","dob":"1997-02-17","email_id":"aishuprvt@gmail.com",
+    "fav_book":"The Kite Runner","genre":"Drama"},
+
+    {"user_id":"220008","name":"Manohar","dob":"2000-09-30","email_id":"manonair@gmail.com",
+    "fav_book":"Three Men in a Boat","genre":"Comedy"}]
+    
+      $scope.orderByMe = function(x) {
+          $scope.myOrderBy = x;
+      }
+  });
+</script>
+</html>
